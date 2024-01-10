@@ -2944,44 +2944,36 @@ $parcel$ReactRefreshHelpers$98a3.prelude(module);
 try {
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _client = require("react-dom/client");
+var _mainView = require("../components/main-view");
 // Import statement to indicate that you need to bundle `./index.scss`
 var _indexScss = require("./index.scss");
 // Main component (will eventually use all the others)
-const MyFlixApplication = ()=>{
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "my-flix",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            children: "Good afternoon"
-        }, void 0, false, {
-            fileName: "src/index.jsx",
-            lineNumber: 10,
-            columnNumber: 7
-        }, undefined)
-    }, void 0, false, {
+const App = ()=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
         fileName: "src/index.jsx",
-        lineNumber: 9,
+        lineNumber: 10,
         columnNumber: 5
     }, undefined);
 };
-_c = MyFlixApplication;
+_c = App;
 // Finds the root of your app
 const container = document.querySelector("#root");
 const root = (0, _client.createRoot)(container);
 // Tells React to render your app in the root DOM element
-root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(MyFlixApplication, {}, void 0, false, {
+root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "src/index.jsx",
-    lineNumber: 20,
+    lineNumber: 19,
     columnNumber: 13
 }, undefined));
 var _c;
-$RefreshReg$(_c, "MyFlixApplication");
+$RefreshReg$(_c, "App");
 
   $parcel$ReactRefreshHelpers$98a3.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"6ZIFf"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","../components/main-view":"2gClH","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"6ZIFf"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27168,7 +27160,175 @@ module.exports = require("ef03b89c8fe2794e");
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 })();
 
-},{}],"lJZlQ":[function() {},{}],"6ZIFf":[function(require,module,exports) {
+},{}],"2gClH":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$7357 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$7357.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MainView", ()=>MainView);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _movieCard = require("./movie-card");
+var _movieView = require("./movie-view");
+var _s = $RefreshSig$();
+const MainView = ()=>{
+    _s();
+    const [movies, setMovies] = (0, _react.useState)([
+        {
+            id: 1,
+            title: "Inception",
+            image: "https://images.moviesanywhere.com/828288e8eff24b4e7851f6404ec98b67/ed5440ea-03ce-4038-8538-10845b0c7d82.jpg",
+            director: "Christopher Nolan",
+            releaseYear: 2010
+        },
+        {
+            id: 2,
+            title: "The Matrix",
+            image: "https://static.wikia.nocookie.net/matrix/images/5/56/The_Matrix_digital_release_cover.jpg/revision/latest/scale-to-width-down/1200?cb=20210908111245",
+            director: "Lana Wachowski, Lilly Wachowski",
+            releaseYear: 1999
+        },
+        {
+            id: 3,
+            title: "Interstellar",
+            image: "https://m.media-amazon.com/images/W/MEDIAX_792452-T1/images/I/A1JVqNMI7UL._AC_UF894,1000_QL80_.jpg",
+            director: "Christopher Nolan",
+            releaseYear: 2014
+        },
+        {
+            id: 4,
+            title: "The Lord of the Rings: The Fellowship of the Ring",
+            image: "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_FMjpg_UX1000_.jpg",
+            director: "Peter Jackson",
+            releaseYear: 2001
+        },
+        {
+            id: 5,
+            title: "Forrest Gump",
+            image: "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p15829_v_v13_aa.jpg",
+            director: "Robert Zemeckis",
+            releaseYear: 1994
+        }
+    ]);
+    const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
+        movie: selectedMovie,
+        onBackClick: ()=>setSelectedMovie(null)
+    }, void 0, false, {
+        fileName: "components/main-view.jsx",
+        lineNumber: 53,
+        columnNumber: 7
+    }, undefined);
+    if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: "The list is empty!"
+    }, void 0, false, {
+        fileName: "components/main-view.jsx",
+        lineNumber: 60,
+        columnNumber: 12
+    }, undefined);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "movie-title-container",
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: "movie-list",
+            children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                    movie: movie,
+                    onMovieClick: (newSelectedMovie)=>{
+                        setSelectedMovie(newSelectedMovie);
+                    }
+                }, movie.id, false, {
+                    fileName: "components/main-view.jsx",
+                    lineNumber: 67,
+                    columnNumber: 11
+                }, undefined))
+        }, void 0, false, {
+            fileName: "components/main-view.jsx",
+            lineNumber: 65,
+            columnNumber: 7
+        }, undefined)
+    }, void 0, false, {
+        fileName: "components/main-view.jsx",
+        lineNumber: 64,
+        columnNumber: 5
+    }, undefined);
+};
+_s(MainView, "CG0uXL4Lf0kXgzW8mkbVkQi2D6I=");
+_c = MainView;
+var _c;
+$RefreshReg$(_c, "MainView");
+
+  $parcel$ReactRefreshHelpers$7357.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./movie-card":"2ud7F","@parcel/transformer-js/src/esmodule-helpers.js":"aRELh","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"6ZIFf","./movie-view":"dAWE5"}],"2ud7F":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$5a24 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$5a24.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MovieCard", ()=>MovieCard);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+const MovieCard = ({ movie, onMovieClick })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "movie-card",
+        onClick: ()=>{
+            onMovieClick(movie);
+        },
+        children: movie.title
+    }, void 0, false, {
+        fileName: "components/movie-card.jsx",
+        lineNumber: 3,
+        columnNumber: 9
+    }, undefined);
+};
+_c = MovieCard;
+var _c;
+$RefreshReg$(_c, "MovieCard");
+
+  $parcel$ReactRefreshHelpers$5a24.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"aRELh","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"6ZIFf"}],"aRELh":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"6ZIFf":[function(require,module,exports) {
 "use strict";
 var Refresh = require("5fe4a9f7d3169ef3");
 function debounce(func, delay) {
@@ -27306,6 +27466,86 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"5fe4a9f7d3169ef3":"7LnTi"}]},["ee1gn","k65zC","d8Dch"], "d8Dch", "parcelRequireaec4")
+},{"5fe4a9f7d3169ef3":"7LnTi"}],"dAWE5":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$608f = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$608f.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MovieView", ()=>MovieView);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+const MovieView = ({ movie, onBackClick })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "movie-view",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                src: movie.image,
+                alt: `${movie.title} cover`
+            }, void 0, false, {
+                fileName: "components/movie-view.jsx",
+                lineNumber: 4,
+                columnNumber: 9
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "movie-details",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "movie-detail movie-title",
+                        children: movie.title
+                    }, void 0, false, {
+                        fileName: "components/movie-view.jsx",
+                        lineNumber: 6,
+                        columnNumber: 11
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "movie-detail movie-director",
+                        children: movie.director
+                    }, void 0, false, {
+                        fileName: "components/movie-view.jsx",
+                        lineNumber: 7,
+                        columnNumber: 11
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "movie-detail movie-release-year",
+                        children: movie.releaseYear
+                    }, void 0, false, {
+                        fileName: "components/movie-view.jsx",
+                        lineNumber: 8,
+                        columnNumber: 11
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "components/movie-view.jsx",
+                lineNumber: 5,
+                columnNumber: 9
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: onBackClick,
+                children: "Back"
+            }, void 0, false, {
+                fileName: "components/movie-view.jsx",
+                lineNumber: 10,
+                columnNumber: 9
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "components/movie-view.jsx",
+        lineNumber: 3,
+        columnNumber: 7
+    }, undefined);
+};
+_c = MovieView;
+var _c;
+$RefreshReg$(_c, "MovieView");
+
+  $parcel$ReactRefreshHelpers$608f.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"6ZIFf","@parcel/transformer-js/src/esmodule-helpers.js":"aRELh"}],"lJZlQ":[function() {},{}]},["ee1gn","k65zC","d8Dch"], "d8Dch", "parcelRequireaec4")
 
 //# sourceMappingURL=index.b4b6dfad.js.map
