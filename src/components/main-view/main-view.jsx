@@ -41,11 +41,12 @@ export const MainView = () => {
   if (!user) {
     return (
       <>
-        <LoginView onLoggedIn={(user, token) => {
-          setUser(user);
-          setToken(token);
-        }} />
-        or
+        <LoginView
+          onLoggedIn={(user, token) => {
+            setUser(user);
+            setToken(token);
+          }}
+        />
         <SignupView />
       </>
     );
@@ -74,7 +75,7 @@ export const MainView = () => {
   }
 
   if (movies.length === 0) {
-    return <div>The list is empty!</div>;
+    return <div>The list is empty</div>;
   }
 
   return (
