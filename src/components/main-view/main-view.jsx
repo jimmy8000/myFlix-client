@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useParams,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate, useParams } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { Row, Col, Button } from "react-bootstrap";
 
 export const MainView = () => {
@@ -59,16 +55,28 @@ export const MainView = () => {
 
   return (
     <Router>
+      <NavigationBar user={user} onLoggedOut={handleLogout} />
       <Row className="justify-content-md-center my-4">
         <Routes>
-          <Route path="/" element={
-            !user ? (
+          <Route path="/login" element={
+            user ? <Navigate to="/" /> : (
               <Col md={5}>
                 <LoginView onLoggedIn={(user, token) => { setUser(user); setToken(token); }} />
-                <hr />
+              </Col>
+            )
+          }/>
+          <Route path="/signup" element={
+            user ? <Navigate to="/" /> : (
+              <Col md={5}>
                 <SignupView />
               </Col>
-            ) : (
+            )
+          }/>
+          <Route path="/movies/:id" element={
+            !user ? <Navigate to="/login" replace /> : <MovieDetailView />
+          }/>
+          <Route path="/" element={
+            !user ? <Navigate to="/login" replace /> : (
               <Col>
                 <Row>
                   {movies.length > 0 ? movies.map(movie => (
@@ -81,8 +89,6 @@ export const MainView = () => {
               </Col>
             )
           }/>
-
-          <Route path="/movies/:id" element={<MovieDetailView />} />
         </Routes>
       </Row>
     </Router>
