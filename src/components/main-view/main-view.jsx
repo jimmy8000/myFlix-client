@@ -4,6 +4,7 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import { ProfileView } from "../profile-view/profile-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { Row, Col, Button } from "react-bootstrap";
 
@@ -16,17 +17,14 @@ export const MainView = () => {
 
   useEffect(() => {
     if (!token) {
-      console.log("No token available");
       return;
     }
 
-    console.log("Fetching movies with token:", token);
     fetch("https://jimmys-flix-bfa74c78fd67.herokuapp.com/movies", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Movies fetched:", data);
         setMovies(data.map(movie => ({
           id: movie._id,
           title: movie.Title,
@@ -55,7 +53,7 @@ export const MainView = () => {
 
   return (
     <Router>
-      <NavigationBar user={user} onLoggedOut={handleLogout} />
+      <NavigationBar user={user} setToken={setToken} setUser={setUser} handleLogout={handleLogout} />
       <Row className="justify-content-md-center my-4">
         <Routes>
           <Route path="/login" element={
@@ -83,12 +81,10 @@ export const MainView = () => {
                     <MovieCard key={movie.id} movie={movie} />
                   )) : <div>The list is empty</div>}
                 </Row>
-                <Button variant="secondary" onClick={handleLogout}>
-                  Logout
-                </Button>
               </Col>
             )
           }/>
+          <Route path="/profile" element={<ProfileView user={user} setUser={setUser} token={token} />} />
         </Routes>
       </Row>
     </Router>
