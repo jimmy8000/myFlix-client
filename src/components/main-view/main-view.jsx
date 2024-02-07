@@ -37,6 +37,7 @@ export const MainView = () => {
         console.error("Error fetching movies:", error);
       });
   }, [token]);
+  
 
   const handleLogout = () => {
     setUser(null);
@@ -78,13 +79,13 @@ export const MainView = () => {
               <Col>
                 <Row>
                   {movies.length > 0 ? movies.map(movie => (
-                    <MovieCard key={movie.id} movie={movie} />
+                    <MovieCard key={movie.id} movie={movie} user={user} token={token} setUser={setUser} />
                   )) : <div>The list is empty</div>}
                 </Row>
               </Col>
             )
           }/>
-          <Route path="/profile" element={<ProfileView user={user} setUser={setUser} token={token} />} />
+          <Route path="/profile" element={<ProfileView user={user} setUser={setUser} movies={movies} token={token} />} />
         </Routes>
       </Row>
     </Router>

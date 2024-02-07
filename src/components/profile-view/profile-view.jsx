@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate } from 'react-router-dom';
-import { Card, Row, Col, Container, Form, Button  } from "react-bootstrap";
+import { Navigate, useNavigate } from "react-router-dom";
+import { Card, Row, Col, Container, Form, Button } from "react-bootstrap";
+import { MovieCard } from "../movie-card/movie-card";
 
-export const ProfileView = ({ user, token, setUser }) => {
-  const [userData, setUserData] = useState({
-    Username: "",
-    Email: "",
-    Birthday: "",
-  });
-  const [editMode, setEditMode] = useState(false); 
+export const ProfileView = ({ user, token, setUser, movies }) => {
+  const [editMode, setEditMode] = useState(false);
 
   if (!user) {
     return <Navigate to="/" replace />;
   }
+
+  const FavoriteMovies = user.FavoriteMovies
+    ? movies.filter((movie) => user.FavoriteMovies.includes(movie.id))
+    : [];
 
   const handleEdit = () => {
     setEditMode(true);
@@ -25,32 +25,60 @@ export const ProfileView = ({ user, token, setUser }) => {
       Email: event.target.email.value,
       Birthday: event.target.birthday.value,
     };
-  
-    fetch(`https://jimmys-flix-bfa74c78fd67.herokuapp.com/users/${user.Username}`, {
+
+    fetch(
+      `https://jimmys-flix-bfa74c78fd67.herokuapp.com/users/${user.Username}`,
+      {
         method: "PUT",
         body: JSON.stringify(updatedInfo),
         headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
-    })
-    .then(response => {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP status ${response.status}`);
         }
         return response.json();
-    })
-    .then(updatedInfo => {
-        localStorage.setItem('user', JSON.stringify(updatedInfo));
-        setUser(updatedInfo); 
-        setEditMode(false); 
-    })
-    .catch(error => {
-        console.error('Error updating user:', error);
-    });
+      })
+      .then((updatedInfo) => {
+        localStorage.setItem("user", JSON.stringify(updatedInfo));
+        setUser(updatedInfo);
+        setEditMode(false);
+      })
+      .catch((error) => {
+        console.error("Error updating user:", error);
+      });
   };
-  
-  
+
+  const handleDelete = () => {
+    if (
+      window.confirm(
+        "Are you sure you want to delete your profile? This action cannot be undone."
+      )
+    ) {
+      fetch(
+        `https://jimmys-flix-bfa74c78fd67.herokuapp.com/users/${user.Username}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      ).then((response) => {
+        if (response.ok) {
+          setUser(null);
+          localStorage.removeItem("user");
+          localStorage.removeItem("token");
+          alert("Your account has been deleted");
+        } else {
+          alert("something went wrong.");
+        }
+      });
+    }
+  };
 
   const handleCancel = () => {
     setEditMode(false);
@@ -91,8 +119,12 @@ export const ProfileView = ({ user, token, setUser }) => {
                       required
                     />
                   </Form.Group>
-                  <Button variant="primary" type="submit">Save Changes</Button>
-                  <Button variant="secondary" onClick={handleCancel}>Cancel</Button>
+                  <Button variant="primary" type="submit">
+                    Save Changes
+                  </Button>
+                  <Button variant="secondary" onClick={handleCancel}>
+                    Cancel
+                  </Button>
                 </Form>
               ) : (
                 <>
@@ -106,12 +138,29 @@ export const ProfileView = ({ user, token, setUser }) => {
                   <Card.Text>
                     <strong>Birthday:</strong> {user.Birthday}
                   </Card.Text>
-                  <Button variant="primary" onClick={handleEdit}>Edit Profile</Button>
+                  <Button variant="primary" onClick={handleEdit}>
+                    Edit Profile
+                  </Button>
+                  <Button variant="secondary" onClick={handleDelete}>
+                    Delete Profile
+                  </Button>
                 </>
               )}
             </Card.Body>
           </Card>
         </Col>
+      </Row>
+      <Row className="justify-content-md-center mx-3 my-4">
+        <h2>Favorite movies</h2>
+        {FavoriteMovies.map((movie) => {
+          return (
+            <Col key={movie.id} className="m-3">
+              <MovieCard
+                movie={movie}
+              />
+            </Col>
+          );
+        })}
       </Row>
     </Container>
   );
