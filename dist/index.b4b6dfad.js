@@ -33890,7 +33890,7 @@ var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 const MovieCard = ({ movie, token, setUser, user })=>{
     const handleFavorites = ()=>{
-        fetch(`https://jimmys-flix-bfa74c78fd67.herokuapp.com/users/${user.Username}/Movies/${movie.id}`, {
+        fetch(`https://jimmys-flix-bfa74c78fd67.herokuapp.com/users/${user.Username}/movies/${movie.id}`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -33900,7 +33900,6 @@ const MovieCard = ({ movie, token, setUser, user })=>{
             if (!response.ok) throw new Error("Failed to add to favorites");
             return response.json();
         }).then((updatedUser)=>{
-            // Assuming setUser updates the user state including the FavoriteMovies
             setUser(updatedUser);
             alert(`${movie.title} added to favorites!`);
         }).catch((error)=>{
@@ -33909,7 +33908,7 @@ const MovieCard = ({ movie, token, setUser, user })=>{
         });
     };
     const handleRemoveFromFavorites = ()=>{
-        fetch(`https://jimmys-flix-bfa74c78fd67.herokuapp.com/users/${user.Username}/Movies/${movie.id}`, {
+        fetch(`https://jimmys-flix-bfa74c78fd67.herokuapp.com/users/${user.Username}/movies/${movie.id}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -33919,7 +33918,6 @@ const MovieCard = ({ movie, token, setUser, user })=>{
             if (!response.ok) throw new Error("Failed to remove from favorites");
             return response.json();
         }).then((updatedUser)=>{
-            // Assuming setUser updates the user state including the FavoriteMovies
             setUser(updatedUser);
             alert(`${movie.title} removed from favorites!`);
         }).catch((error)=>{
@@ -33927,6 +33925,7 @@ const MovieCard = ({ movie, token, setUser, user })=>{
             alert("Could not remove movie from favorites.");
         });
     };
+    const isFavorite = user.FavoriteMovies.find((movieId)=>movie.id === movieId);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
         md: 4,
         className: "mb-3",
@@ -33942,7 +33941,7 @@ const MovieCard = ({ movie, token, setUser, user })=>{
                     }
                 }, void 0, false, {
                     fileName: "src/components/movie-card/movie-card.jsx",
-                    lineNumber: 68,
+                    lineNumber: 67,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
@@ -33951,66 +33950,63 @@ const MovieCard = ({ movie, token, setUser, user })=>{
                             children: movie.title
                         }, void 0, false, {
                             fileName: "src/components/movie-card/movie-card.jsx",
-                            lineNumber: 74,
+                            lineNumber: 73,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
                             children: movie.director
                         }, void 0, false, {
                             fileName: "src/components/movie-card/movie-card.jsx",
-                            lineNumber: 75,
+                            lineNumber: 74,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
                             to: `/movies/${encodeURIComponent(movie.id)}`,
-                            children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                    variant: "link",
-                                    children: "Open"
-                                }, void 0, false, {
-                                    fileName: "src/components/movie-card/movie-card.jsx",
-                                    lineNumber: 77,
-                                    columnNumber: 13
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                    variant: "primary",
-                                    onClick: handleFavorites,
-                                    children: "Add to Favorites"
-                                }, void 0, false, {
-                                    fileName: "src/components/movie-card/movie-card.jsx",
-                                    lineNumber: 79,
-                                    columnNumber: 13
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                    variant: "danger",
-                                    onClick: handleRemoveFromFavorites,
-                                    children: "Remove from Favorites"
-                                }, void 0, false, {
-                                    fileName: "src/components/movie-card/movie-card.jsx",
-                                    lineNumber: 80,
-                                    columnNumber: 13
-                                }, undefined)
-                            ]
-                        }, void 0, true, {
+                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                variant: "link",
+                                children: "Open"
+                            }, void 0, false, {
+                                fileName: "src/components/movie-card/movie-card.jsx",
+                                lineNumber: 76,
+                                columnNumber: 13
+                            }, undefined)
+                        }, void 0, false, {
                             fileName: "src/components/movie-card/movie-card.jsx",
-                            lineNumber: 76,
+                            lineNumber: 75,
                             columnNumber: 11
+                        }, undefined),
+                        isFavorite ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                            variant: "danger",
+                            onClick: handleRemoveFromFavorites,
+                            children: "Remove from Favorites"
+                        }, void 0, false, {
+                            fileName: "src/components/movie-card/movie-card.jsx",
+                            lineNumber: 78,
+                            columnNumber: 25
+                        }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                            variant: "primary",
+                            onClick: handleFavorites,
+                            children: "Add to Favorites"
+                        }, void 0, false, {
+                            fileName: "src/components/movie-card/movie-card.jsx",
+                            lineNumber: 78,
+                            columnNumber: 119
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/movie-card/movie-card.jsx",
-                    lineNumber: 73,
+                    lineNumber: 72,
                     columnNumber: 9
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/movie-card/movie-card.jsx",
-            lineNumber: 67,
+            lineNumber: 66,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/movie-card/movie-card.jsx",
-        lineNumber: 66,
+        lineNumber: 65,
         columnNumber: 5
     }, undefined);
 };
@@ -41634,9 +41630,9 @@ const ProfileView = ({ user, token, setUser, movies })=>{
         }).then((response)=>{
             if (!response.ok) throw new Error(`HTTP status ${response.status}`);
             return response.json();
-        }).then((updatedInfo)=>{
-            localStorage.setItem("user", JSON.stringify(updatedInfo));
-            setUser(updatedInfo);
+        }).then((updatedUser)=>{
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+            setUser(updatedUser);
             setEditMode(false);
         }).catch((error)=>{
             console.error("Error updating user:", error);
@@ -41886,7 +41882,10 @@ const ProfileView = ({ user, token, setUser, movies })=>{
                         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                             className: "m-3",
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                                movie: movie
+                                movie: movie,
+                                user: user,
+                                setUser: setUser,
+                                token: token
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
                                 lineNumber: 158,
@@ -41921,7 +41920,7 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"aRELh","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"6ZIFf","../movie-card/movie-card":"bwuIu"}],"bsPVM":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","react-bootstrap":"3AD9A","../movie-card/movie-card":"bwuIu","@parcel/transformer-js/src/esmodule-helpers.js":"aRELh","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"6ZIFf"}],"bsPVM":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$abf5 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

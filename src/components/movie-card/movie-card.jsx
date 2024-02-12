@@ -5,10 +5,9 @@ import { Link } from "react-router-dom";
 
 export const MovieCard = ({ movie, token, setUser, user }) => {
   
-
   const handleFavorites = () => {
     fetch(
-      `https://jimmys-flix-bfa74c78fd67.herokuapp.com/users/${user.Username}/Movies/${movie.id}`,
+      `https://jimmys-flix-bfa74c78fd67.herokuapp.com/users/${user.Username}/movies/${movie.id}`,
       {
         method: "POST",
         headers: {
@@ -24,7 +23,6 @@ export const MovieCard = ({ movie, token, setUser, user }) => {
         return response.json();
       })
       .then((updatedUser) => {
-        // Assuming setUser updates the user state including the FavoriteMovies
         setUser(updatedUser);
         alert(`${movie.title} added to favorites!`);
       })
@@ -36,7 +34,7 @@ export const MovieCard = ({ movie, token, setUser, user }) => {
 
   const handleRemoveFromFavorites = () => {
     fetch(
-      `https://jimmys-flix-bfa74c78fd67.herokuapp.com/users/${user.Username}/Movies/${movie.id}`,
+      `https://jimmys-flix-bfa74c78fd67.herokuapp.com/users/${user.Username}/movies/${movie.id}`,
       {
         method: "DELETE",
         headers: {
@@ -52,7 +50,6 @@ export const MovieCard = ({ movie, token, setUser, user }) => {
         return response.json();
       })
       .then((updatedUser) => {
-        // Assuming setUser updates the user state including the FavoriteMovies
         setUser(updatedUser);
         alert(`${movie.title} removed from favorites!`);
       })
@@ -61,6 +58,8 @@ export const MovieCard = ({ movie, token, setUser, user }) => {
         alert("Could not remove movie from favorites.");
       });
   };
+
+  const isFavorite = user.FavoriteMovies.find(movieId => movie.id === movieId)
 
   return (
     <Col md={4} className="mb-3">
@@ -75,10 +74,9 @@ export const MovieCard = ({ movie, token, setUser, user }) => {
           <Card.Text>{movie.director}</Card.Text>
           <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
             <Button variant="link">Open</Button>
-            
-            <Button variant="primary" onClick={handleFavorites}>Add to Favorites</Button>
-            <Button variant="danger" onClick={handleRemoveFromFavorites}>Remove from Favorites</Button>
           </Link>
+          {isFavorite ? <Button variant="danger" onClick={handleRemoveFromFavorites}>Remove from Favorites</Button> : <Button variant="primary" onClick={handleFavorites}>Add to Favorites</Button>}
+          
         </Card.Body>
       </Card>
     </Col>

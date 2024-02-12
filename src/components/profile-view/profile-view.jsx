@@ -43,9 +43,9 @@ export const ProfileView = ({ user, token, setUser, movies }) => {
         }
         return response.json();
       })
-      .then((updatedInfo) => {
-        localStorage.setItem("user", JSON.stringify(updatedInfo));
-        setUser(updatedInfo);
+      .then((updatedUser) => {
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        setUser(updatedUser);
         setEditMode(false);
       })
       .catch((error) => {
@@ -157,6 +157,9 @@ export const ProfileView = ({ user, token, setUser, movies }) => {
             <Col key={movie.id} className="m-3">
               <MovieCard
                 movie={movie}
+                user={user}
+                setUser={setUser}
+                token={token}
               />
             </Col>
           );
