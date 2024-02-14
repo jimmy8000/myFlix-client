@@ -154,14 +154,13 @@ export const ProfileView = ({ user, token, setUser, movies }) => {
         <h2>Favorite movies</h2>
         {FavoriteMovies.map((movie) => {
           return (
-            <Col key={movie.id} className="m-3">
               <MovieCard
+              key={movie.id} className="m-3"
                 movie={movie}
                 user={user}
                 setUser={setUser}
                 token={token}
               />
-            </Col>
           );
         })}
       </Row>

@@ -62,7 +62,7 @@ export const MovieCard = ({ movie, token, setUser, user }) => {
   const isFavorite = user.FavoriteMovies.find(movieId => movie.id === movieId)
 
   return (
-    <Col md={4} className="mb-3">
+    <Col md={3} lg={2} className="mb-3">
       <Card className="h-100">
         <Card.Img
           variant="top"
