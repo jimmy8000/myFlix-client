@@ -6,6 +6,7 @@ import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { ProfileView } from "../profile-view/profile-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
+import SearchBar from "../search-bar/search-bar";
 import { Row, Col, Button } from "react-bootstrap";
 
 export const MainView = () => {
@@ -14,6 +15,14 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredMovies = searchQuery.length === 0
+    ? movies
+    : movies.filter((movie) =>
+        movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
 
   useEffect(() => {
     if (!token) {
@@ -29,6 +38,7 @@ export const MainView = () => {
           id: movie._id,
           title: movie.Title,
           director: movie.Director.Name,
+          description: movie.Description,
           genre: movie.Genre.Name,
           image: movie.ImagePath,
         })));
@@ -55,6 +65,7 @@ export const MainView = () => {
   return (
     <Router>
       <NavigationBar user={user} setToken={setToken} setUser={setUser} handleLogout={handleLogout} />
+      <SearchBar onSearch={setSearchQuery} />
       <Row className="justify-content-md-center my-4">
         <Routes>
           <Route path="/login" element={
@@ -78,7 +89,7 @@ export const MainView = () => {
             !user ? <Navigate to="/login" replace /> : (
               <Col>
                 <Row>
-                  {movies.length > 0 ? movies.map(movie => (
+                  {filteredMovies.length > 0 ? filteredMovies.map(movie => (
                     <MovieCard key={movie.id} movie={movie} user={user} token={token} setUser={setUser} />
                   )) : <div>The list is empty</div>}
                 </Row>
