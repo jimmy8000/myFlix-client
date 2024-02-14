@@ -65,7 +65,6 @@ export const MainView = () => {
   return (
     <Router>
       <NavigationBar user={user} setToken={setToken} setUser={setUser} handleLogout={handleLogout} />
-      <SearchBar onSearch={setSearchQuery} />
       <Row className="justify-content-md-center my-4">
         <Routes>
           <Route path="/login" element={
@@ -88,6 +87,7 @@ export const MainView = () => {
           <Route path="/" element={
             !user ? <Navigate to="/login" replace /> : (
               <Col>
+              <SearchBar onSearch={setSearchQuery} />
                 <Row>
                   {filteredMovies.length > 0 ? filteredMovies.map(movie => (
                     <MovieCard key={movie.id} movie={movie} user={user} token={token} setUser={setUser} />
