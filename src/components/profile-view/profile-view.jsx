@@ -44,7 +44,6 @@ export const ProfileView = ({ user, token, setUser, movies }) => {
         return response.json();
       })
       .then((updatedUser) => {
-        localStorage.setItem("user", JSON.stringify(updatedUser));
         setUser(updatedUser);
         setEditMode(false);
       })
@@ -83,6 +82,14 @@ export const ProfileView = ({ user, token, setUser, movies }) => {
   const handleCancel = () => {
     setEditMode(false);
   };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+  }
+
+  let formattedBirthday = user.Birthday ? formatDate(user.Birthday) : '';
 
   return (
     <Container>
@@ -136,9 +143,9 @@ export const ProfileView = ({ user, token, setUser, movies }) => {
                     <strong>Email:</strong> {user.Email}
                   </Card.Text>
                   <Card.Text>
-                    <strong>Birthday:</strong> {user.Birthday}
+                    <strong>Birthday:</strong> {formattedBirthday}
                   </Card.Text>
-                  <Button variant="primary" onClick={handleEdit}>
+                  <Button variant="primary" onClick={handleEdit} className="me-1">
                     Edit Profile
                   </Button>
                   <Button variant="secondary" onClick={handleDelete}>

@@ -10,10 +10,9 @@ import SearchBar from "../search-bar/search-bar";
 import { Row, Col, Button } from "react-bootstrap";
 
 export const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const storedToken = localStorage.getItem("token");
-  const [user, setUser] = useState(storedUser ? storedUser : null);
-  const [token, setToken] = useState(storedToken ? storedToken : null);
+  const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
+
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -22,7 +21,6 @@ export const MainView = () => {
     : movies.filter((movie) =>
         movie.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
-
 
   useEffect(() => {
     if (!token) {
@@ -87,7 +85,7 @@ export const MainView = () => {
           <Route path="/" element={
             !user ? <Navigate to="/login" replace /> : (
               <Col>
-              <SearchBar onSearch={setSearchQuery} />
+              <SearchBar searchQuery={searchQuery} onSearch={setSearchQuery} />
                 <Row>
                   {filteredMovies.length > 0 ? filteredMovies.map(movie => (
                     <MovieCard key={movie.id} movie={movie} user={user} token={token} setUser={setUser} />
